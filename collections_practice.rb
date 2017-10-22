@@ -30,23 +30,17 @@ def remove_non_strings(elements)
   elements.grep(String)
 end
 
-def count_elements(elements)
-  new_hash = {}
-  result = []
-  elements.each do |element|
-    element.each do |key, value|
-      if new_hash.has_value?(value)
-        new_hash[key] = value
-        new_hash[:count] += 1
-      else
-        new_hash[key] = value
-        new_hash[:count] = 1
-        result << new_hash
-      end
+def count_elements(array)
+  counts = {}
+
+  counts.default = 0
+  array.collect {|element| counts[element]+=1 }
+    counts.collect do |hash, number|
+      hash[:count] = number
     end
-  end
-  result
+   counts.keys
 end
+count_elements([{:name => "blake"}, {:name => "blake"}, {:name => "ashley"}])
 def merge_data(keys, data)
   merge = []
   names = keys.collect {|info| info[:name]} # [blake, ashley]
@@ -58,6 +52,7 @@ def merge_data(keys, data)
   end
   merge
 end
+
 def find_cool(elements)
   elements.each do |element|
     element.each do |key, value|
